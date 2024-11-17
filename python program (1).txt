@@ -1,0 +1,2234 @@
+1. Write a python program to perform following operations on BST.
+Insert
+Display
+
+class Node:
+    def __init__(self, key):
+        self.left = None
+        self.right = None
+        self.value = key
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    # Insert a node in the BST
+    def insert(self, root, key):
+        # If the tree is empty, return a new node
+        if root is None:
+            return Node(key)
+
+        # Otherwise, recur down the tree
+        if key < root.value:
+            root.left = self.insert(root.left, key)
+        else:
+            root.right = self.insert(root.right, key)
+
+        return root
+
+    # Function for inorder traversal of the BST (for display)
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.value, end=" ")
+            self.inorder(root.right)
+
+    # Utility function to start the insertion
+    def insert_root(self, key):
+        if not self.root:
+            self.root = Node(key)
+        else:
+            self.root = self.insert(self.root, key)
+
+    # Utility function to display the BST
+    def display(self):
+        self.inorder(self.root)
+        print()  # For newline after display
+
+# Driver code
+bst = BST()
+bst.insert_root(50)
+bst.insert_root(30)
+bst.insert_root(20)
+bst.insert_root(40)
+bst.insert_root(70)
+bst.insert_root(60)
+bst.insert_root(80)
+
+print("Inorder traversal of the BST:")
+bst.display()
+
+2. Write Python program to merge two sorted linked lists
+
+class ListNode:
+    def __init__(self, value=0, next=None):
+        self.value = value
+        self.next = next
+
+def merge_sorted_lists(l1, l2):
+    
+    dummy = ListNode()
+    current = dummy
+
+    while l1 and l2:
+        if l1.value < l2.value:
+            current.next = l1
+            l1 = l1.next
+        else:
+            current.next = l2
+            l2 = l2.next
+        current = current.next
+
+    
+    if l1:
+        current.next = l1
+    elif l2:
+        current.next = l2
+
+    return dummy.next
+
+
+def print_list(node):
+    while node:
+        print(node.value, end=" -> ")
+        node = node.next
+    print("None")
+
+
+
+l1 = ListNode(1, ListNode(3, ListNode(5)))
+l2 = ListNode(2, ListNode(4, ListNode(6)))
+
+
+merged_list = merge_sorted_lists(l1, l2)
+
+
+print("Merged Sorted Linked List:")
+print_list(merged_list)
+
+3. Write a python program to perform following operations on BST.
+Create
+Search
+Display (Preorder / Inorder / Postorder)
+
+class Node:
+    def __init__(self, key):
+        self.value = key
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    
+    def insert(self, root, key):
+        if root is None:
+            return Node(key)
+        if key < root.value:
+            root.left = self.insert(root.left, key)
+        else:
+            root.right = self.insert(root.right, key)
+        return root
+
+    
+    def insert_root(self, key):
+        if not self.root:
+            self.root = Node(key)
+        else:
+            self.root = self.insert(self.root, key)
+
+    
+    def search(self, root, key):
+        if root is None or root.value == key:
+            return root
+        if key < root.value:
+            return self.search(root.left, key)
+        return self.search(root.right, key)
+
+    
+    def preorder(self, root):
+        if root:
+            print(root.value, end=" ")
+            self.preorder(root.left)
+            self.preorder(root.right)
+
+    
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.value, end=" ")
+            self.inorder(root.right)
+
+    
+    def postorder(self, root):
+        if root:
+            self.postorder(root.left)
+            self.postorder(root.right)
+            print(root.value, end=" ")
+
+    
+    def display(self, order="inorder"):
+        if order == "preorder":
+            self.preorder(self.root)
+        elif order == "postorder":
+            self.postorder(self.root)
+        else:
+            self.inorder(self.root)
+        print()
+
+
+bst = BST()
+
+
+bst.insert_root(50)
+bst.insert_root(30)
+bst.insert_root(20)
+bst.insert_root(40)
+bst.insert_root(70)
+bst.insert_root(60)
+bst.insert_root(80)
+
+
+print("Preorder traversal:")
+bst.display("preorder")
+
+print("Inorder traversal:")
+bst.display("inorder")
+
+print("Postorder traversal:")
+bst.display("postorder")
+
+
+search_key = 40
+result = bst.search(bst.root, search_key)
+if result:
+    print(f"Node {search_key} found in the BST.")
+else:
+    print(f"Node {search_key} not found in the BST.")
+
+4. Python program for static implementation of Singly Linked List to perform Insert and Display
+operations.
+
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    
+    def insert(self, value):
+        new_node = Node(value)
+        if not self.head:  
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:  
+                current = current.next
+            current.next = new_node  
+
+    
+    def display(self):
+        current = self.head
+        if not current:
+            print("List is empty.")
+            return
+        while current:
+            print(current.value, end=" -> ")
+            current = current.next
+        print("None")
+
+
+sll = SinglyLinkedList()
+
+
+sll.insert(10)
+sll.insert(20)
+sll.insert(30)
+sll.insert(40)
+
+
+print("Singly Linked List:")
+sll.display()
+
+5.Write a python program to perform following operations on Binary Search Tree
+i. Create
+ii.Count non-leaf nodes
+iii. Traversal (Prorder / Inorder / Postorder)
+
+class Node:
+    def __init__(self, key):
+        self.value = key
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    
+    def insert(self, root, key):
+        if root is None:
+            return Node(key)
+        if key < root.value:
+            root.left = self.insert(root.left, key)
+        else:
+            root.right = self.insert(root.right, key)
+        return root
+
+    
+    def insert_root(self, key):
+        if not self.root:
+            self.root = Node(key)
+        else:
+            self.root = self.insert(self.root, key)
+
+    
+    def count_non_leaf_nodes(self, root):
+        if root is None:
+            return 0
+        if root.left is None and root.right is None:
+            return 0
+        else:
+            return 1 + self.count_non_leaf_nodes(root.left) + self.count_non_leaf_nodes(root.right)
+
+    
+    def preorder(self, root):
+        if root:
+            print(root.value, end=" ")
+            self.preorder(root.left)
+            self.preorder(root.right)
+
+    
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.value, end=" ")
+            self.inorder(root.right)
+
+
+    def postorder(self, root):
+        if root:
+            self.postorder(root.left)
+            self.postorder(root.right)
+            print(root.value, end=" ")
+
+    
+    def display(self, order="inorder"):
+        if order == "preorder":
+            self.preorder(self.root)
+        elif order == "postorder":
+            self.postorder(self.root)
+        else:
+            self.inorder(self.root)
+        print()
+
+
+bst = BST()
+
+
+bst.insert_root(50)
+bst.insert_root(30)
+bst.insert_root(20)
+bst.insert_root(40)
+bst.insert_root(70)
+bst.insert_root(60)
+bst.insert_root(80)
+
+
+print("Preorder traversal:")
+bst.display("preorder")
+
+print("Inorder traversal:")
+bst.display("inorder")
+
+print("Postorder traversal:")
+bst.display("postorder")
+
+
+non_leaf_count = bst.count_non_leaf_nodes(bst.root)
+print(f"Non-leaf nodes count: {non_leaf_count}")
+
+6. Python program for dynamic implementation of Singly Linked List to perform
+Insert and Display operations.
+
+class Node:
+    def __init__(self, value):
+        self.value = value  # Node's data
+        self.next = None  # Pointer to the next node
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None  # Initialize the list as empty
+
+    # Insert operation (Insert at the end)
+    def insert(self, value):
+        new_node = Node(value)
+        if not self.head:  # If the list is empty
+            self.head = new_node  # New node becomes the head
+        else:
+            current = self.head
+            while current.next:  # Traverse to the last node
+                current = current.next
+            current.next = new_node  # Insert the new node at the end
+
+    # Display operation (Display all elements)
+    def display(self):
+        if not self.head:
+            print("List is empty.")
+            return
+        current = self.head
+        while current:
+            print(current.value, end=" -> ")
+            current = current.next
+        print("None")
+
+# Driver code
+sll = SinglyLinkedList()
+
+# Insert elements into the list
+sll.insert(10)
+sll.insert(20)
+sll.insert(30)
+sll.insert(40)
+
+# Display the linked list
+print("Singly Linked List:")
+sll.display()
+
+7. Write a python program to perform following operations on Binary Search Tree
+i. Create
+ii.Count leaf nodes
+iii. Traversal (Prorder / Inorder / Postorder)
+
+class Node:
+    def __init__(self, key):
+        self.value = key
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    
+    def insert(self, root, key):
+        if root is None:
+            return Node(key)
+        if key < root.value:
+            root.left = self.insert(root.left, key)
+        else:
+            root.right = self.insert(root.right, key)
+        return root
+
+    
+    def insert_root(self, key):
+        if not self.root:
+            self.root = Node(key)
+        else:
+            self.root = self.insert(self.root, key)
+
+
+    def count_leaf_nodes(self, root):
+        if root is None:
+            return 0
+        if root.left is None and root.right is None:
+            return 1
+        else:
+            return self.count_leaf_nodes(root.left) + self.count_leaf_nodes(root.right)
+
+    
+    def preorder(self, root):
+        if root:
+            print(root.value, end=" ")
+            self.preorder(root.left)
+            self.preorder(root.right)
+
+    
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.value, end=" ")
+            self.inorder(root.right)
+
+    
+    def postorder(self, root):
+        if root:
+            self.postorder(root.left)
+            self.postorder(root.right)
+            print(root.value, end=" ")
+
+    
+    def display(self, order="inorder"):
+        if order == "preorder":
+            self.preorder(self.root)
+        elif order == "postorder":
+            self.postorder(self.root)
+        else:
+            self.inorder(self.root)
+        print()
+
+
+bst = BST()
+
+
+bst.insert_root(50)
+bst.insert_root(30)
+bst.insert_root(20)
+bst.insert_root(40)
+bst.insert_root(70)
+bst.insert_root(60)
+bst.insert_root(80)
+
+
+print("Preorder traversal:")
+bst.display("preorder")
+
+print("Inorder traversal:")
+bst.display("inorder")
+
+print("Postorder traversal:")
+bst.display("postorder")
+
+
+leaf_count = bst.count_leaf_nodes(bst.root)
+print(f"Leaf nodes count: {leaf_count}")
+
+8. Python program to create a linked list in the sorted order
+
+class Node:
+    def __init__(self, value):
+        self.value = value  
+        self.next = None  
+
+class SortedLinkedList:
+    def __init__(self):
+        self.head = None  
+
+    
+    def insert_sorted(self, value):
+        new_node = Node(value)
+
+        
+        if not self.head or self.head.value >= new_node.value:
+            new_node.next = self.head
+            self.head = new_node
+        else:
+            
+            current = self.head
+            while current.next and current.next.value < new_node.value:
+                current = current.next
+            new_node.next = current.next
+            current.next = new_node
+
+    
+    def display(self):
+        if not self.head:
+            print("List is empty.")
+            return
+        current = self.head
+        while current:
+            print(current.value, end=" -> ")
+            current = current.next
+        print("None")
+
+
+sorted_list = SortedLinkedList()
+
+
+sorted_list.insert_sorted(30)
+sorted_list.insert_sorted(10)
+sorted_list.insert_sorted(50)
+sorted_list.insert_sorted(20)
+sorted_list.insert_sorted(40)
+
+
+print("Sorted Linked List:")
+sorted_list.display()
+
+
+9. Write a python program to perform following operations on BST
+i. Create
+ii.Delete
+iii. Traversal (Prorder / Inorder / Postorder)
+
+class Node:
+    def __init__(self, key):
+        self.value = key
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    
+    def insert(self, root, key):
+        if root is None:
+            return Node(key)
+        if key < root.value:
+            root.left = self.insert(root.left, key)
+        else:
+            root.right = self.insert(root.right, key)
+        return root
+
+    
+    def insert_root(self, key):
+        if not self.root:
+            self.root = Node(key)
+        else:
+            self.root = self.insert(self.root, key)
+
+    
+    def delete(self, root, key):
+        if root is None:
+            return root
+
+        
+        if key < root.value:
+            root.left = self.delete(root.left, key)
+        elif key > root.value:
+            root.right = self.delete(root.right, key)
+        else:
+            
+            if root.left is None:
+                return root.right
+            elif root.right is None:
+                return root.left
+
+            
+            root.value = self.min_value_node(root.right).value
+            root.right = self.delete(root.right, root.value)
+
+        return root
+
+    
+    def min_value_node(self, root):
+        current = root
+        while current.left is not None:
+            current = current.left
+        return current
+
+    
+    def preorder(self, root):
+        if root:
+            print(root.value, end=" ")
+            self.preorder(root.left)
+            self.preorder(root.right)
+
+    
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.value, end=" ")
+            self.inorder(root.right)
+
+    
+    def postorder(self, root):
+        if root:
+            self.postorder(root.left)
+            self.postorder(root.right)
+            print(root.value, end=" ")
+
+    
+    def display(self, order="inorder"):
+        if order == "preorder":
+            self.preorder(self.root)
+        elif order == "postorder":
+            self.postorder(self.root)
+        else:
+            self.inorder(self.root)
+        print()
+
+bst = BST()
+
+
+bst.insert_root(50)
+bst.insert_root(30)
+bst.insert_root(20)
+bst.insert_root(40)
+bst.insert_root(70)
+bst.insert_root(60)
+bst.insert_root(80)
+
+
+print("Preorder traversal:")
+bst.display("preorder")
+
+print("Inorder traversal:")
+bst.display("inorder")
+
+print("Postorder traversal:")
+bst.display("postorder")
+
+
+print("\nDeleting node 20:")
+bst.root = bst.delete(bst.root, 20)
+
+
+print("Inorder traversal after deletion:")
+bst.display("inorder")
+
+
+print("\nDeleting node 30:")
+bst.root = bst.delete(bst.root, 30)
+
+
+print("Inorder traversal after deletion:")
+bst.display("inorder")
+
+10. Write a python program for implementation of Doubly Linked List to perform
+Insert and Display operations.
+
+class Node:
+    def __init__(self, value):
+        self.value = value  
+        self.prev = None  
+        self.next = None  
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None  
+
+    
+    def insert(self, value):
+        new_node = Node(value)
+        if not self.head:  
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:  
+                current = current.next
+            current.next = new_node  
+            new_node.prev = current  
+
+    
+    def display(self):
+        if not self.head:
+            print("List is empty.")
+            return
+        current = self.head
+        while current:
+            print(current.value, end=" <=> ")
+            current = current.next
+        print("None")
+
+
+dll = DoublyLinkedList()
+
+
+dll.insert(10)
+dll.insert(20)
+dll.insert(30)
+dll.insert(40)
+
+print("Doubly Linked List:")
+dll.display()
+
+11. Write a python program to perform following operations on Binary Search Tree
+i. Create
+ii.Count total nodes
+iii. Traversal (Prorder / Inorder / Postorder)
+
+class Node:
+    def __init__(self, key):
+        self.value = key
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    
+    def insert(self, root, key):
+        if root is None:
+            return Node(key)
+        if key < root.value:
+            root.left = self.insert(root.left, key)
+        else:
+            root.right = self.insert(root.right, key)
+        return root
+
+    
+    def insert_root(self, key):
+        if not self.root:
+            self.root = Node(key)
+        else:
+            self.root = self.insert(self.root, key)
+
+
+    def count_nodes(self, root):
+        if root is None:
+            return 0
+        return 1 + self.count_nodes(root.left) + self.count_nodes(root.right)
+
+    
+    def preorder(self, root):
+        if root:
+            print(root.value, end=" ")
+            self.preorder(root.left)
+            self.preorder(root.right)
+
+    
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.value, end=" ")
+            self.inorder(root.right)
+
+    
+    def postorder(self, root):
+        if root:
+            self.postorder(root.left)
+            self.postorder(root.right)
+            print(root.value, end=" ")
+
+    
+    def display(self, order="inorder"):
+        if order == "preorder":
+            self.preorder(self.root)
+        elif order == "postorder":
+            self.postorder(self.root)
+        else:
+            self.inorder(self.root)
+        print()
+
+
+bst = BST()
+
+
+bst.insert_root(50)
+bst.insert_root(30)
+bst.insert_root(20)
+bst.insert_root(40)
+bst.insert_root(70)
+bst.insert_root(60)
+bst.insert_root(80)
+
+
+print("Preorder traversal:")
+bst.display("preorder")
+
+print("Inorder traversal:")
+bst.display("inorder")
+
+print("Postorder traversal:")
+bst.display("postorder")
+
+
+total_nodes = bst.count_nodes(bst.root)
+print(f"Total nodes in the BST: {total_nodes}")
+
+
+12. Python program to create doubly linked list and search the given node in the Linked list.
+
+class Node:
+    def __init__(self, value):
+        self.value = value  
+        self.prev = None  
+        self.next = None 
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None  
+
+    
+    def insert(self, value):
+        new_node = Node(value)
+        if not self.head:
+            self.head = new_node 
+        else:
+            current = self.head
+            while current.next:  
+                current = current.next
+            current.next = new_node  
+            new_node.prev = current  
+
+    
+    def search(self, key):
+        current = self.head
+        while current:
+            if current.value == key:
+                return True  
+            current = current.next
+        return False  
+
+    
+    def display(self):
+        if not self.head:
+            print("List is empty.")
+            return
+        current = self.head
+        while current:
+            print(current.value, end=" <=> ")
+            current = current.next
+        print("None")
+
+
+dll = DoublyLinkedList()
+
+
+dll.insert(10)
+dll.insert(20)
+dll.insert(30)
+dll.insert(40)
+
+
+print("Doubly Linked List:")
+dll.display()
+
+
+key = 30
+if dll.search(key):
+    print(f"Node with value {key} found in the list.")
+else:
+    print(f"Node with value {key} not found in the list.")
+
+
+13. Write a python program to perform following operations on BST.
+i. Create
+ii. Display
+
+class Node:
+    def __init__(self, key):
+        self.value = key
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    
+    def insert(self, root, key):
+        if root is None:
+            return Node(key)
+        if key < root.value:
+            root.left = self.insert(root.left, key)
+        else:
+            root.right = self.insert(root.right, key)
+        return root
+
+    
+    def insert_root(self, key):
+        if not self.root:
+            self.root = Node(key)
+        else:
+            self.root = self.insert(self.root, key)
+
+    
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.value, end=" ")
+            self.inorder(root.right)
+
+    
+    def display(self):
+        if self.root:
+            self.inorder(self.root)
+        else:
+            print("Tree is empty.")
+        print()
+
+
+bst = BST()
+
+
+bst.insert_root(50)
+bst.insert_root(30)
+bst.insert_root(20)
+bst.insert_root(40)
+bst.insert_root(70)
+bst.insert_root(60)
+bst.insert_root(80)
+
+
+print("Inorder traversal of BST:")
+bst.display()
+
+
+14. Python program to create singly linked list and search the given node in the Linked list.
+
+class Node:
+    def __init__(self, value):
+        self.value = value  
+        self.next = None  
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None  
+
+    
+    def insert(self, value):
+        new_node = Node(value)
+        if not self.head:  
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:  
+                current = current.next
+            current.next = new_node  
+
+    
+    def search(self, key):
+        current = self.head
+        while current:
+            if current.value == key:
+                return True  
+            current = current.next
+        return False  
+
+
+    def display(self):
+        if not self.head:
+            print("List is empty.")
+            return
+        current = self.head
+        while current:
+            print(current.value, end=" -> ")
+            current = current.next
+        print("None")
+
+
+sll = SinglyLinkedList()
+
+
+sll.insert(10)
+sll.insert(20)
+sll.insert(30)
+sll.insert(40)
+
+
+print("Singly Linked List:")
+sll.display()
+
+
+key = 30
+if sll.search(key):
+    print(f"Node with value {key} found in the list.")
+else:
+    print(f"Node with value {key} not found in the list.")
+
+15. Write a python program to perform following operations on BST.
+i. Insert
+ii.Delete
+iii.Display (Preorder / Inorder / Postorder)
+
+class Node:
+    def __init__(self, key):
+        self.value = key
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    
+    def insert(self, root, key):
+        if root is None:
+            return Node(key)
+        if key < root.value:
+            root.left = self.insert(root.left, key)
+        else:
+            root.right = self.insert(root.right, key)
+        return root
+
+    
+    def insert_root(self, key):
+        if not self.root:
+            self.root = Node(key)
+        else:
+            self.root = self.insert(self.root, key)
+
+
+    def delete(self, root, key):
+        if root is None:
+            return root
+
+        
+        if key < root.value:
+            root.left = self.delete(root.left, key)
+        elif key > root.value:
+            root.right = self.delete(root.right, key)
+        else:
+            
+            if root.left is None:
+                return root.right
+            elif root.right is None:
+                return root.left
+
+            
+            root.value = self.min_value_node(root.right).value
+            root.right = self.delete(root.right, root.value)
+
+        return root
+
+    
+    def min_value_node(self, root):
+        current = root
+        while current.left is not None:
+            current = current.left
+        return current
+
+    
+    def preorder(self, root):
+        if root:
+            print(root.value, end=" ")
+            self.preorder(root.left)
+            self.preorder(root.right)
+
+    
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.value, end=" ")
+            self.inorder(root.right)
+
+    
+    def postorder(self, root):
+        if root:
+            self.postorder(root.left)
+            self.postorder(root.right)
+            print(root.value, end=" ")
+
+    
+    def display(self, order="inorder"):
+        if order == "preorder":
+            self.preorder(self.root)
+        elif order == "postorder":
+            self.postorder(self.root)
+        else:
+            self.inorder(self.root)
+        print()
+
+
+bst = BST()
+
+
+bst.insert_root(50)
+bst.insert_root(30)
+bst.insert_root(20)
+bst.insert_root(40)
+bst.insert_root(70)
+bst.insert_root(60)
+bst.insert_root(80)
+
+
+print("Preorder traversal:")
+bst.display("preorder")
+
+print("Inorder traversal:")
+bst.display("inorder")
+
+print("Postorder traversal:")
+bst.display("postorder")
+
+
+print("\nDeleting node 20:")
+bst.root = bst.delete(bst.root, 20)
+
+
+print("Inorder traversal after deletion:")
+bst.display("inorder")
+
+print("\nDeleting node 30:")
+bst.root = bst.delete(bst.root, 30)
+
+
+print("Inorder traversal after deletion:")
+bst.display("inorder")
+
+16. Python program to create singly linked list and reverse the Linked list.
+
+class Node:
+    def __init__(self, value):
+        self.value = value  
+        self.next = None 
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None  
+
+    
+    def insert(self, value):
+        new_node = Node(value)
+        if not self.head:  
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node  
+
+    
+    def reverse(self):
+        prev = None
+        current = self.head
+        while current:
+            next_node = current.next  
+            current.next = prev  
+            prev = current  
+            current = next_node 
+        self.head = prev  
+
+    
+    def display(self):
+        if not self.head:
+            print("List is empty.")
+            return
+        current = self.head
+        while current:
+            print(current.value, end=" -> ")
+            current = current.next
+        print("None")
+
+
+sll = SinglyLinkedList()
+
+
+sll.insert(10)
+sll.insert(20)
+sll.insert(30)
+sll.insert(40)
+
+
+print("Original Singly Linked List:")
+sll.display()
+
+
+sll.reverse()
+
+
+print("Reversed Singly Linked List:")
+sll.display()
+
+17.Write a program to search an element using Linear Search
+
+def linear_search(arr, target):
+    
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i  
+    return -1  
+
+
+arr = [10, 20, 30, 40, 50]  
+target = 30  
+
+result = linear_search(arr, target)
+
+if result != -1:
+    print(f"Element {target} found at index {result}.")
+else:
+    print(f"Element {target} not found in the list.")
+
+18. Write a program to calculate indegree of a graph using adjacency matrix
+
+def calculate_indegree(adj_matrix):
+    num_vertices = len(adj_matrix)
+    indegree = [0] * num_vertices  
+
+    
+    for j in range(num_vertices):
+        for i in range(num_vertices):
+            if adj_matrix[i][j] == 1:  
+                indegree[j] += 1  
+
+    return indegree
+
+
+adj_matrix = [
+    [0, 1, 1, 0],  
+    [0, 0, 1, 0],  
+    [0, 0, 0, 1],  
+    [0, 0, 0, 0]   
+]
+
+
+indegree = calculate_indegree(adj_matrix)
+
+
+for i, degree in enumerate(indegree):
+    print(f"Indegree of vertex {i}: {degree}")
+
+19.Write a program to search an element using Binary Search.
+
+def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+
+    while low <= high:
+        mid = (low + high) // 2  
+        if arr[mid] == target:
+            return mid  
+        elif arr[mid] < target:
+            low = mid + 1  
+        else:
+            high = mid - 1  
+
+    return -1  
+
+
+arr = [10, 20, 30, 40, 50, 60, 70, 80, 90]  
+target = 40  
+
+result = binary_search(arr, target)
+
+if result != -1:
+    print(f"Element {target} found at index {result}.")
+else:
+    print(f"Element {target} not found in the array.")
+
+
+20. Write a Python program to calculate outdegree of a graph using adjacency matrix
+
+def calculate_outdegree(adj_matrix):
+    num_vertices = len(adj_matrix)
+    outdegree = [0] * num_vertices  
+
+    
+    for i in range(num_vertices):
+        outdegree[i] = sum(adj_matrix[i])  
+
+    return outdegree
+
+
+
+adj_matrix = [
+    [0, 1, 1, 0],  
+    [0, 0, 1, 0],  
+    [0, 0, 0, 1],  
+    [0, 0, 0, 0]   
+]
+
+
+outdegree = calculate_outdegree(adj_matrix)
+
+
+for i, degree in enumerate(outdegree):
+    print(f"Outdegree of vertex {i}: {degree}")
+
+
+21. Write a Python program to sort given numbers using Bubble Sort algorithms
+
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        
+        swapped = False
+        
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = True
+        
+        if not swapped:
+            break
+
+
+arr = [64, 34, 25, 12, 22, 11, 90]  
+print("Original array:", arr)
+
+
+bubble_sort(arr)
+
+print("Sorted array:", arr)
+
+
+22. Write a Python class named Circle constructed by a radius and two methods which will compute
+the area and the perimeter of a circle
+
+import math
+
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius  
+
+    def area(self):
+        return math.pi * (self.radius ** 2)
+
+    
+    def perimeter(self):
+        return 2 * math.pi * self.radius
+
+
+radius = 5  
+circle = Circle(radius)  
+
+
+print(f"Area of the circle: {circle.area():.2f}")
+print(f"Perimeter (circumference) of the circle: {circle.perimeter():.2f}")
+
+
+23. Write a Python program to implement sorting Merge Sort algorithms
+
+def merge_sort(arr):
+
+    if len(arr) <= 1:
+        return arr
+    
+
+    mid = len(arr) // 2
+    
+    
+    left_half = merge_sort(arr[:mid])
+    right_half = merge_sort(arr[mid:])
+    
+    
+    return merge(left_half, right_half)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+
+    
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    
+    result.extend(left[i:])
+    result.extend(right[j:])
+    
+    return result
+
+
+arr = [38, 27, 43, 3, 9, 82, 10]  
+print("Original array:", arr)
+
+
+sorted_arr = merge_sort(arr)
+
+
+print("Sorted array:", sorted_arr)
+
+24. Write a Python program to create a class representing a shopping cart. Include methods for
+adding and removing items, and calculating the total price.
+
+class ShoppingCart:
+    def __init__(self):
+        self.items = []  
+        self.total_price = 0
+
+    
+    def add_item(self, item_name, price, quantity=1):
+        self.items.append({'name': item_name, 'price': price, 'quantity': quantity})
+        self.total_price += price * quantity 
+
+    
+    def remove_item(self, item_name):
+        for item in self.items:
+            if item['name'] == item_name:
+                self.total_price -= item['price'] * item['quantity']
+                self.items.remove(item) 
+                return f"{item_name} removed from the cart."
+        return f"{item_name} not found in the cart."
+
+    
+    def get_total(self):
+        return self.total_price
+
+    
+    def display_items(self):
+        if not self.items:
+            return "Your cart is empty."
+        cart_details = ""
+        for item in self.items:
+            cart_details += f"{item['quantity']} x {item['name']} @ ${item['price']} each\n"
+        return cart_details
+
+
+cart = ShoppingCart()
+
+
+cart.add_item("Apple", 0.99, 3)  
+cart.add_item("Banana", 0.50, 5)  
+cart.add_item("Orange", 1.20, 2)  
+
+
+print("Items in the cart:")
+print(cart.display_items())
+
+
+print(f"Total Price: ${cart.get_total():.2f}")
+
+print(cart.remove_item("Banana"))  
+print("\nItems in the cart after removal:")
+print(cart.display_items())
+print(f"Total Price: ${cart.get_total():.2f}")
+
+
+25. Write a Python program to implement sorting Quick Sort algorithms.
+
+def quick_sort(arr):
+    
+    if len(arr) <= 1:
+        return arr
+    
+    
+    pivot = arr[-1]
+    
+    
+    left = [x for x in arr[:-1] if x <= pivot]
+    right = [x for x in arr[:-1] if x > pivot]
+    
+    
+    return quick_sort(left) + [pivot] + quick_sort(right)
+
+
+arr = [10, 7, 8, 9, 1, 5]  
+print("Original array:", arr)
+
+
+sorted_arr = quick_sort(arr)
+
+
+print("Sorted array:", sorted_arr)
+
+
+26. Write a Python program to implement sorting Insertion Sort algorithms.
+
+def insertion_sort(arr):
+
+    for i in range(1, len(arr)):
+        key = arr[i]  
+        j = i - 1  
+
+        
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        
+        
+        arr[j + 1] = key
+
+
+arr = [12, 11, 13, 5, 6]  
+print("Original array:", arr)
+
+
+insertion_sort(arr)
+
+
+print("Sorted array:", arr)
+
+
+27. Write a Python program to calculate indegree of a graph.
+
+def calculate_indegree(adj_matrix):
+    
+    num_vertices = len(adj_matrix)
+    
+    
+    indegree = [0] * num_vertices
+    
+    
+    for j in range(num_vertices):
+        for i in range(num_vertices):
+            if adj_matrix[i][j] == 1:
+                indegree[j] += 1
+    
+    return indegree
+
+
+adj_matrix = [
+    [0, 1, 1, 0],  
+    [0, 0, 1, 0],  
+    [0, 0, 0, 1],  
+    [0, 0, 0, 0]   
+]
+
+
+indegree = calculate_indegree(adj_matrix)
+
+
+for i, degree in enumerate(indegree):
+    print(f"Indegree of vertex {i}: {degree}")
+
+
+28. Write a Python program to calculate outdegree of a graph.
+
+def calculate_outdegree(adj_matrix):
+    
+    num_vertices = len(adj_matrix)
+    
+    
+    outdegree = [0] * num_vertices
+    
+    
+    for i in range(num_vertices):
+        for j in range(num_vertices):
+            if adj_matrix[i][j] == 1:
+                outdegree[i] += 1
+    
+    return outdegree
+
+
+
+
+adj_matrix = [
+    [0, 1, 1, 0],  
+    [0, 0, 1, 0],  
+    [0, 0, 0, 1],  
+    [0, 0, 0, 0]   
+]
+
+
+outdegree = calculate_outdegree(adj_matrix)
+
+for i, degree in enumerate(outdegree):
+    print(f"Outdegree of vertex {i}: {degree}")
+
+29.Write a python code for static implementation of stack.
+
+class Stack:
+    def __init__(self, size):
+        self.size = size 
+        self.stack = []   
+
+    
+    def push(self, element):
+        if len(self.stack) < self.size:
+            self.stack.append(element)
+            print(f"{element} pushed to stack.")
+        else:
+            print("Stack overflow! Unable to push element.")
+
+    
+    def pop(self):
+        if len(self.stack) > 0:
+            popped_element = self.stack.pop()
+            print(f"{popped_element} popped from stack.")
+        else:
+            print("Stack underflow! Unable to pop element.")
+
+    
+    def peek(self):
+        if len(self.stack) > 0:
+            print(f"Top element is: {self.stack[-1]}")
+        else:
+            print("Stack is empty!")
+
+    
+    def is_empty(self):
+        return len(self.stack) == 0
+
+    
+    def is_full(self):
+        return len(self.stack) == self.size
+
+    
+    def display(self):
+        if len(self.stack) > 0:
+            print("Stack elements:", self.stack)
+        else:
+            print("Stack is empty!")
+
+
+stack_size = 3
+stack = Stack(stack_size)
+
+
+stack.push(10)
+stack.push(20)
+stack.push(30)
+
+
+stack.push(40)  
+
+
+stack.display()
+
+
+stack.peek()
+
+
+stack.pop()
+stack.pop()
+
+
+stack.display()
+
+
+stack.pop()
+stack.pop()  
+
+30. Write a Python program for Evaluation of postfix expression.def evaluate_postfix(expression):
+
+    stack = []
+    
+    
+    for char in expression.split():
+        if char.isdigit():  
+            stack.append(int(char))  
+        else:  
+            operand2 = stack.pop() 
+            operand1 = stack.pop()  
+            
+            
+            if char == '+':
+                result = operand1 + operand2
+            elif char == '-':
+                result = operand1 - operand2
+            elif char == '*':
+                result = operand1 * operand2
+            elif char == '/':
+                result = operand1 / operand2  
+            
+            
+            stack.append(result)
+    
+    
+    return stack.pop()
+
+
+expression = "3 4 + 2 * 7 /"  
+print("Postfix Expression:", expression)
+result = evaluate_postfix(expression)
+print("Result of Postfix Expression:", result)
+
+31.Write a python code for static implementation of queue
+
+class Queue:
+    def __init__(self, size):
+        self.size = size          
+        self.queue = [None] * size  
+        self.front = -1            
+        self.rear = -1             
+
+    
+    def enqueue(self, element):
+        if self.rear == self.size - 1:  
+            print("Queue overflow! Unable to enqueue.")
+        else:
+            if self.front == -1:  
+                self.front = 0
+            self.rear += 1
+            self.queue[self.rear] = element
+            print(f"{element} enqueued to queue.")
+
+    
+    def dequeue(self):
+        if self.front == -1: 
+            print("Queue underflow! Unable to dequeue.")
+        else:
+            dequeued_element = self.queue[self.front]
+            print(f"{dequeued_element} dequeued from queue.")
+            if self.front == self.rear:  
+                self.front = self.rear = -1
+            else:
+                self.front += 1
+    def peek(self):
+        if self.front != -1:
+            print(f"Front element is: {self.queue[self.front]}")
+        else:
+            print("Queue is empty!")
+
+    
+    def is_empty(self):
+        return self.front == -1
+
+    
+    def is_full(self):
+        return self.rear == self.size - 1
+
+    
+    def display(self):
+        if self.front == -1:
+            print("Queue is empty!")
+        else:
+            print("Queue elements:", self.queue[self.front:self.rear + 1])
+
+
+queue_size = 3
+queue = Queue(queue_size)
+
+
+queue.enqueue(10)
+queue.enqueue(20)
+queue.enqueue(30)
+
+queue.enqueue(40)  
+
+
+queue.display()
+
+
+queue.peek()
+
+
+queue.dequeue()
+queue.dequeue()
+
+
+queue.display()
+
+queue.dequeue()
+queue.dequeue()  
+
+32. Write a python code for dynamic implementation of Stack to perform following operations: Init,
+Push, Pop, Isempty, Isfull.
+
+class Stack:
+    def __init__(self, max_size=None):
+        self.stack = []        
+        self.max_size = max_size  
+
+    
+    def push(self, element):
+        if self.is_full():
+            print("Stack is full! Cannot push element.")
+        else:
+            self.stack.append(element)
+            print(f"{element} pushed to stack.")
+
+
+    def pop(self):
+        if self.is_empty():
+            print("Stack is empty! Cannot pop element.")
+        else:
+            popped_element = self.stack.pop()
+            print(f"{popped_element} popped from stack.")
+
+    
+    def is_empty(self):
+        return len(self.stack) == 0
+
+    
+    def is_full(self):
+        if self.max_size is None:
+            return False  
+        return len(self.stack) == self.max_size
+
+    
+    def display(self):
+        if self.is_empty():
+            print("Stack is empty!")
+        else:
+            print("Stack elements:", self.stack)
+
+
+stack = Stack(max_size=3)  
+
+stack.push(10)
+stack.push(20)
+stack.push(30)
+
+
+stack.push(40)  
+
+
+stack.display()
+
+
+stack.pop()
+stack.pop()
+
+
+stack.display()
+
+
+stack.pop()  
+stack.pop()  
+
+33.Write a python code for simple implementation of priority queue.
+
+import heapq
+
+class PriorityQueue:
+    def __init__(self):
+        self.queue = []  
+        self.counter = 0  
+
+    def push(self, item, priority):
+        
+        heapq.heappush(self.queue, (priority, self.counter, item))
+        self.counter += 1
+        print(f"Item '{item}' with priority {priority} pushed to the queue.")
+
+    
+    def pop(self):
+        if not self.is_empty():
+            priority, counter, item = heapq.heappop(self.queue)
+            print(f"Item '{item}' with priority {priority} popped from the queue.")
+            return item
+        else:
+            print("Priority queue is empty!")
+            return None
+
+    
+    def is_empty(self):
+        return len(self.queue) == 0
+
+    
+    def display(self):
+        if not self.is_empty():
+            print("Priority queue elements (priority, item):")
+            for priority, counter, item in self.queue:
+                print(f"Priority: {priority}, Item: {item}")
+        else:
+            print("Priority queue is empty!")
+
+
+pq = PriorityQueue()
+
+
+pq.push("task1", priority=3)
+pq.push("task2", priority=1)
+pq.push("task3", priority=2)
+
+
+pq.display()
+
+
+pq.pop()
+pq.pop()
+
+
+pq.display()
+
+
+pq.pop()
+pq.pop() 
+ 
+34. Write a Python program to convert infix to postfix conversion using stack.
+
+
+def precedence(op):
+    if op == '^':
+        return 3
+    elif op == '*' or op == '/':
+        return 2
+    elif op == '+' or op == '-':
+        return 1
+    return 0
+
+
+def infix_to_postfix(expression):
+    stack = []  
+    output = []  
+    for char in expression:
+        if char.isalnum():  
+            
+            output.append(char)
+        elif char == '(':  
+            stack.append(char)
+        elif char == ')':  
+            while stack and stack[-1] != '(':
+                output.append(stack.pop())
+            stack.pop()  
+        else:  
+            while (stack and precedence(stack[-1]) >= precedence(char)):
+                output.append(stack.pop())
+            stack.append(char)
+
+    
+    while stack:
+        output.append(stack.pop())
+
+    return ''.join(output)  
+
+
+infix_expression = "A+B*(C^D-E)^(F+G*H)-I"
+print("Infix Expression: ", infix_expression)
+postfix_expression = infix_to_postfix(infix_expression)
+print("Postfix Expression: ", postfix_expression)
+
+
+35. Write a python code for simple implementation of priority queue
+
+import heapq
+
+class PriorityQueue:
+    def __init__(self):
+        self.queue = []  
+        self.counter = 0
+
+    
+    def push(self, item, priority):
+        
+        heapq.heappush(self.queue, (priority, self.counter, item))
+        self.counter += 1
+        print(f"Item '{item}' with priority {priority} pushed to the queue.")
+
+    
+    def pop(self):
+        if not self.is_empty():
+            priority, counter, item = heapq.heappop(self.queue)
+            print(f"Item '{item}' with priority {priority} popped from the queue.")
+            return item
+        else:
+            print("Priority queue is empty!")
+            return None
+
+    
+    def is_empty(self):
+        return len(self.queue) == 0
+
+    
+    def peek(self):
+        if not self.is_empty():
+            priority, counter, item = self.queue[0]
+            return item
+        else:
+            return None
+
+    
+    def display(self):
+        if not self.is_empty():
+            print("Priority queue elements (priority, item):")
+            for priority, counter, item in self.queue:
+                print(f"Priority: {priority}, Item: {item}")
+        else:
+            print("Priority queue is empty!")
+
+
+pq = PriorityQueue()
+
+
+pq.push("task1", priority=3)
+pq.push("task2", priority=1)
+pq.push("task3", priority=2)
+
+
+pq.display()
+
+
+pq.pop()
+pq.pop()
+
+
+pq.display()
+
+peeked_item = pq.peek()
+print(f"The item with the highest priority is: {peeked_item}")
+
+
+pq.pop()
+pq.pop()
+
+36. Write a python code for dynamic implementation of linear Queue to perform following
+operations: init, enqueue, dequeue, isEmpty, isFull.
+
+class LinearQueue:
+    def __init__(self, max_size=10):
+        """Initialize the queue with an optional max_size parameter."""
+        self.queue = []  
+        self.max_size = max_size  
+
+    def enqueue(self, item):
+        """Add an item to the rear of the queue."""
+        if self.is_full():
+            print("Queue is full! Cannot enqueue.")
+        else:
+            self.queue.append(item)
+            print(f"Item '{item}' enqueued.")
+
+    def dequeue(self):
+        """Remove the front item from the queue."""
+        if self.is_empty():
+            print("Queue is empty! Cannot dequeue.")
+        else:
+            item = self.queue.pop(0)  
+            print(f"Item '{item}' dequeued.")
+            return item
+
+    def is_empty(self):
+        """Check if the queue is empty."""
+        return len(self.queue) == 0
+
+    def is_full(self):
+        """Check if the queue is full based on max_size."""
+        return len(self.queue) >= self.max_size
+
+    def display(self):
+        """Display all elements in the queue."""
+        if self.is_empty():
+            print("Queue is empty.")
+        else:
+            print("Queue elements:", self.queue)
+
+
+queue = LinearQueue(max_size=5)
+
+
+queue.enqueue(10)
+queue.enqueue(20)
+queue.enqueue(30)
+queue.enqueue(40)
+queue.enqueue(50)
+
+
+queue.display()
+
+queue.enqueue(60)
+
+
+queue.dequeue()
+queue.dequeue()
+
+queue.display()
+
+
+queue.dequeue()
+queue.dequeue()
+queue.dequeue()
+
+queue.display()
+
+37. Write a python code for Implementation of an algorithm that reverses string of characters using
+stack and checks whether a string is a palindrome or not.
+
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, item):
+        self.stack.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.stack.pop()
+        else:
+            return None
+
+    def is_empty(self):
+        return len(self.stack) == 0
+
+
+def reverse_string(s):
+    stack = Stack()
+    
+    
+    for char in s:
+        stack.push(char)
+    
+    reversed_str = ""
+    while not stack.is_empty():
+        reversed_str += stack.pop()
+    
+    return reversed_str
+
+
+def is_palindrome(s):
+    reversed_str = reverse_string(s)
+    return s == reversed_str
+
+
+input_string = "radar"
+print(f"Original string: {input_string}")
+reversed_string = reverse_string(input_string)
+print(f"Reversed string: {reversed_string}")
+
+if is_palindrome(input_string):
+    print(f"The string '{input_string}' is a palindrome.")
+else:
+    print(f"The string '{input_string}' is not a palindrome.")
+
+
+38. Write a python code for implementation of circular queue.
+
+class CircularQueue:
+    def __init__(self, size):
+        self.size = size  
+        self.queue = [None] * self.size  
+        self.front = 0  
+        self.rear = 0  
+
+    
+    def enqueue(self, item):
+        if self.is_full():
+            print("Queue is full! Cannot enqueue.")
+        else:
+            self.queue[self.rear] = item
+            self.rear = (self.rear + 1) % self.size  
+            print(f"Item '{item}' enqueued.")
+
+    
+    def dequeue(self):
+        if self.is_empty():
+            print("Queue is empty! Cannot dequeue.")
+        else:
+            item = self.queue[self.front]
+            self.front = (self.front + 1) % self.size  
+            print(f"Item '{item}' dequeued.")
+            return item
+
+    
+    def peek(self):
+        if self.is_empty():
+            print("Queue is empty! Cannot peek.")
+            return None
+        else:
+            return self.queue[self.front]
+
+    
+    def is_empty(self):
+        return self.front == self.rear
+
+    
+    def is_full(self):
+        return (self.rear + 1) % self.size == self.front
+
+    
+    def display(self):
+        if self.is_empty():
+            print("Queue is empty.")
+        else:
+            idx = self.front
+            print("Queue elements:", end=" ")
+            while idx != self.rear:
+                print(self.queue[idx], end=" ")
+                idx = (idx + 1) % self.size
+            print()  
+
+
+cq = CircularQueue(5)
+
+cq.enqueue(10)
+cq.enqueue(20)
+cq.enqueue(30)
+cq.enqueue(40)
+cq.enqueue(50)
+
+
+cq.display()
+
+
+cq.enqueue(60)
+
+
+cq.dequeue()
+cq.dequeue()
+
+
+cq.display()
+
+
+cq.enqueue(60)
+cq.enqueue(70)
+
+
+cq.display()
+
+
+front_item = cq.peek()
+print(f"Front item: {front_item}")
+
+
+
+
+
+
+
